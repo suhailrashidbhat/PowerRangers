@@ -14,5 +14,6 @@
 @property (nonatomic, strong) PowerRanger *rangerSquare;
 @property (strong, nonatomic) IBOutlet UIView *mapView;
 @property (weak, nonatomic) IBOutlet UITableView *rangerSelectionTable;
+@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 
 @end

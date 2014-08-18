@@ -11,18 +11,22 @@
 
 @interface ViewController ()
 
-@property (nonatomic, strong) NSMutableArray *rangersArray;
+@property (nonatomic, strong) NSMutableDictionary *rangersDictionary;
 
 @end
 
+
+
 @implementation ViewController
+
+@synthesize managedObjectContext;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     [self.view setBackgroundColor:[UIColor purpleColor]];
-    self.rangersArray = [NSMutableArray array];
+    self.rangersDictionary = [NSMutableDictionary dictionary];
 }
 
 - (void)didReceiveMemoryWarning
@@ -91,10 +95,8 @@
         NSInteger yMax = self.mapView.bounds.size.height - offset;
         NSInteger xMin = self.mapView.bounds.origin.x + offset;
         NSInteger xMax = self.mapView.bounds.size.width - offset;
-        
         BOOL inBounds = (newCenter.y >= yMin && newCenter.y <= yMax &&
                          newCenter.x >= xMin && newCenter.x <= xMax);
-        
         if  (inBounds) {
             //if boundary conditions met : translate the view
             panGesture.view.center = newCenter;

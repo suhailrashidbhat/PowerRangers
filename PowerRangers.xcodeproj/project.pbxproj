@@ -23,6 +23,7 @@
 		1A77F76119A1EB01001D2637 /* PowerRangersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A77F76019A1EB01001D2637 /* PowerRangersTests.m */; };
 		1A77F76F19A1FCEF001D2637 /* PowerRanger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A77F76E19A1FCEF001D2637 /* PowerRanger.m */; };
 		1A77F78019A24625001D2637 /* PowerRangerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A77F77F19A24625001D2637 /* PowerRangerCell.m */; };
+		1A77F78319A25824001D2637 /* PowerRangerPositions.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A77F78119A25824001D2637 /* PowerRangerPositions.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		1A77F76E19A1FCEF001D2637 /* PowerRanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PowerRanger.m; sourceTree = "<group>"; };
 		1A77F77E19A24625001D2637 /* PowerRangerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerRangerCell.h; sourceTree = "<group>"; };
 		1A77F77F19A24625001D2637 /* PowerRangerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PowerRangerCell.m; sourceTree = "<group>"; };
+		1A77F78219A25824001D2637 /* PowerRangerPositions.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PowerRangerPositions.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				1A77F74A19A1EB01001D2637 /* PowerRangerViewController.h */,
 				1A77F74B19A1EB01001D2637 /* PowerRangerViewController.m */,
 				1A77F74D19A1EB01001D2637 /* Images.xcassets */,
+				1A77F78119A25824001D2637 /* PowerRangerPositions.xcdatamodeld */,
 				1A77F73C19A1EB01001D2637 /* Supporting Files */,
 			);
 			path = PowerRangers;
@@ -262,6 +265,7 @@
 				1A77F74C19A1EB01001D2637 /* PowerRangerViewController.m in Sources */,
 				1A77F76F19A1FCEF001D2637 /* PowerRanger.m in Sources */,
 				1A77F78019A24625001D2637 /* PowerRangerCell.m in Sources */,
+				1A77F78319A25824001D2637 /* PowerRangerPositions.xcdatamodeld in Sources */,
 				1A77F74619A1EB01001D2637 /* AppDelegate.m in Sources */,
 				1A77F74219A1EB01001D2637 /* main.m in Sources */,
 			);
@@ -480,6 +484,19 @@
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1A77F78119A25824001D2637 /* PowerRangerPositions.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1A77F78219A25824001D2637 /* PowerRangerPositions.xcdatamodel */,
+			);
+			currentVersion = 1A77F78219A25824001D2637 /* PowerRangerPositions.xcdatamodel */;
+			path = PowerRangerPositions.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1A77F72A19A1EB00001D2637 /* Project object */;
 }
