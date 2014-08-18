@@ -55,14 +55,9 @@
     [self.rangerSelectionTable deselectRowAtIndexPath:indexPath animated:YES];
     PowerRangerCell *currentCell = (PowerRangerCell*)[self.rangerSelectionTable cellForRowAtIndexPath:indexPath];
     if (currentCell.isSelected) {
-        for (PowerRanger *ranger in self.rangersArray) {
-            if (ranger.rangerType == indexPath.row) {
-                [self.rangersArray removeObject:ranger];
-            }
-        }
-        for (PowerRanger *ranger in self.mapView.subviews) {
-            if (ranger.rangerType == indexPath.row) {
-                ranger.hidden = YES;
+        for (UIView *rangerView in self.mapView.subviews) {
+            if (rangerView.tag == indexPath.row) {
+                [rangerView removeFromSuperview];
             }
         }
         [currentCell enableCellWithType:indexPath.row];
@@ -80,8 +75,8 @@
     [self.rangerSquare addGestureRecognizer:panGesture];
     [self.rangerSquare setFrame:CGRectMake(self.mapView.center.x, self.mapView.center.y, RANGER_WIDTH, RANGER_HEIGHT)];
     self.rangerSquare.center = self.mapView.center;
+    self.rangerSquare.tag = indexPath.row;
     [self.mapView addSubview:self.rangerSquare];
-    [self.rangersArray addObject:self.rangerSquare];
 }
 
 -(void)handlePan:(UIPanGestureRecognizer*)panGesture; {
