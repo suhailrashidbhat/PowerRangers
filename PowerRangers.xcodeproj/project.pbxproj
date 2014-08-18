@@ -14,13 +14,14 @@
 		1A77F74219A1EB01001D2637 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A77F74119A1EB01001D2637 /* main.m */; };
 		1A77F74619A1EB01001D2637 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A77F74519A1EB01001D2637 /* AppDelegate.m */; };
 		1A77F74919A1EB01001D2637 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A77F74719A1EB01001D2637 /* Main.storyboard */; };
-		1A77F74C19A1EB01001D2637 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A77F74B19A1EB01001D2637 /* ViewController.m */; };
+		1A77F74C19A1EB01001D2637 /* PowerRangerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A77F74B19A1EB01001D2637 /* PowerRangerViewController.m */; };
 		1A77F74E19A1EB01001D2637 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A77F74D19A1EB01001D2637 /* Images.xcassets */; };
 		1A77F75519A1EB01001D2637 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A77F75419A1EB01001D2637 /* XCTest.framework */; };
 		1A77F75619A1EB01001D2637 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A77F73519A1EB01001D2637 /* Foundation.framework */; };
 		1A77F75719A1EB01001D2637 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A77F73919A1EB01001D2637 /* UIKit.framework */; };
 		1A77F75F19A1EB01001D2637 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A77F75D19A1EB01001D2637 /* InfoPlist.strings */; };
 		1A77F76119A1EB01001D2637 /* PowerRangersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A77F76019A1EB01001D2637 /* PowerRangersTests.m */; };
+		1A77F76F19A1FCEF001D2637 /* PowerRanger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A77F76E19A1FCEF001D2637 /* PowerRanger.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,14 +46,17 @@
 		1A77F74419A1EB01001D2637 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1A77F74519A1EB01001D2637 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1A77F74819A1EB01001D2637 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		1A77F74A19A1EB01001D2637 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		1A77F74B19A1EB01001D2637 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		1A77F74A19A1EB01001D2637 /* PowerRangerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PowerRangerViewController.h; sourceTree = "<group>"; };
+		1A77F74B19A1EB01001D2637 /* PowerRangerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PowerRangerViewController.m; sourceTree = "<group>"; };
 		1A77F74D19A1EB01001D2637 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1A77F75319A1EB01001D2637 /* PowerRangersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PowerRangersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A77F75419A1EB01001D2637 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1A77F75C19A1EB01001D2637 /* PowerRangersTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PowerRangersTests-Info.plist"; sourceTree = "<group>"; };
 		1A77F75E19A1EB01001D2637 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1A77F76019A1EB01001D2637 /* PowerRangersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PowerRangersTests.m; sourceTree = "<group>"; };
+		1A77F76D19A1FCEF001D2637 /* PowerRanger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerRanger.h; sourceTree = "<group>"; };
+		1A77F76E19A1FCEF001D2637 /* PowerRanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PowerRanger.m; sourceTree = "<group>"; };
+		1A77F77B19A21491001D2637 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,10 +119,11 @@
 				1A77F74419A1EB01001D2637 /* AppDelegate.h */,
 				1A77F74519A1EB01001D2637 /* AppDelegate.m */,
 				1A77F74719A1EB01001D2637 /* Main.storyboard */,
-				1A77F74A19A1EB01001D2637 /* ViewController.h */,
-				1A77F74B19A1EB01001D2637 /* ViewController.m */,
+				1A77F74A19A1EB01001D2637 /* PowerRangerViewController.h */,
+				1A77F74B19A1EB01001D2637 /* PowerRangerViewController.m */,
 				1A77F74D19A1EB01001D2637 /* Images.xcassets */,
 				1A77F73C19A1EB01001D2637 /* Supporting Files */,
+				1A77F77B19A21491001D2637 /* Constants.h */,
 			);
 			path = PowerRangers;
 			sourceTree = "<group>";
@@ -130,6 +135,8 @@
 				1A77F73E19A1EB01001D2637 /* InfoPlist.strings */,
 				1A77F74119A1EB01001D2637 /* main.m */,
 				1A77F74319A1EB01001D2637 /* PowerRangers-Prefix.pch */,
+				1A77F76D19A1FCEF001D2637 /* PowerRanger.h */,
+				1A77F76E19A1FCEF001D2637 /* PowerRanger.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -249,7 +256,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A77F74C19A1EB01001D2637 /* ViewController.m in Sources */,
+				1A77F74C19A1EB01001D2637 /* PowerRangerViewController.m in Sources */,
+				1A77F76F19A1FCEF001D2637 /* PowerRanger.m in Sources */,
 				1A77F74619A1EB01001D2637 /* AppDelegate.m in Sources */,
 				1A77F74219A1EB01001D2637 /* main.m in Sources */,
 			);
