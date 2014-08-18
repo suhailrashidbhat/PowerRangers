@@ -18,7 +18,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,10 +62,24 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.rangerSquare = [[PowerRanger alloc] initWithType:indexPath.row];
+    UIPanGestureRecognizer* pgr = [[UIPanGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(handlePan:)];
+    [self.rangerSquare addGestureRecognizer:pgr];
     [self.rangerSquare setFrame:CGRectMake(self.mapView.center.x, self.mapView.center.y, RANGER_WIDTH, RANGER_HEIGHT)];
     self.rangerSquare.center = self.mapView.center;
     [self.mapView addSubview:self.rangerSquare];
 }
 
+-(void)handlePan:(UIPanGestureRecognizer*)pgr; {
+    if (pgr.state == UIGestureRecognizerStateChanged) {
+        CGPoint center = pgr.view.center;
+        CGPoint translation = [pgr translationInView:pgr.view];
+        center = CGPointMake(center.x + translation.x,
+                             center.y + translation.y);
+        pgr.view.center = center;
+        [pgr setTranslation:CGPointZero inView:pgr.view];
+    }
+}
 
 @end

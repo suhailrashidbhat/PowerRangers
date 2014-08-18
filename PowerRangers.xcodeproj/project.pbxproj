@@ -56,7 +56,6 @@
 		1A77F76019A1EB01001D2637 /* PowerRangersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PowerRangersTests.m; sourceTree = "<group>"; };
 		1A77F76D19A1FCEF001D2637 /* PowerRanger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerRanger.h; sourceTree = "<group>"; };
 		1A77F76E19A1FCEF001D2637 /* PowerRanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PowerRanger.m; sourceTree = "<group>"; };
-		1A77F77B19A21491001D2637 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +122,6 @@
 				1A77F74B19A1EB01001D2637 /* PowerRangerViewController.m */,
 				1A77F74D19A1EB01001D2637 /* Images.xcassets */,
 				1A77F73C19A1EB01001D2637 /* Supporting Files */,
-				1A77F77B19A21491001D2637 /* Constants.h */,
 			);
 			path = PowerRangers;
 			sourceTree = "<group>";
