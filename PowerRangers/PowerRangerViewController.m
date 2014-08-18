@@ -7,8 +7,11 @@
 //
 
 #import "PowerRangerViewController.h"
+#import "PowerRangerCell.h"
 
 @interface ViewController ()
+
+@property (nonatomic, strong) NSMutableArray *rangersArray;
 
 @end
 
@@ -18,6 +21,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    [self.view setBackgroundColor:[UIColor purpleColor]];
+    self.rangersArray = [NSMutableArray array];
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,48 +42,69 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    const NSInteger labelWidth = 150;
-    const NSInteger labelHeight = 30;
-    const NSInteger xOffsetRangerSquare = 10;
-    const NSInteger xOffsetLabel = xOffsetRangerSquare + RANGER_WIDTH + 20;
-    const NSInteger yOffset = 10;
-    
-    UITableViewCell* rangerCell  = nil;
+    PowerRangerCell* rangerCell  = nil;
     NSString *cellIdentifier = @"rangerSelectionCell";
     rangerCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    self.powerRangerName = [[UILabel alloc] init];
-    self.rangerSquare = [[PowerRanger alloc] initWithType:indexPath.row];
     if (rangerCell == nil) {
-        rangerCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        [rangerCell addSubview:self.rangerSquare];
-        [rangerCell addSubview:self.powerRangerName];
-        
-        [self.rangerSquare setFrame:CGRectMake(xOffsetRangerSquare, yOffset, RANGER_WIDTH, RANGER_HEIGHT)];
-        [self.powerRangerName setFrame:CGRectMake(xOffsetLabel, yOffset, labelWidth, labelHeight)];
+        rangerCell = [[PowerRangerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier withIndexPath:indexPath];
     }
-    self.powerRangerName.text = self.rangerSquare.rangerName;
     return rangerCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.rangerSelectionTable deselectRowAtIndexPath:indexPath animated:YES];
+    PowerRangerCell *currentCell = (PowerRangerCell*)[self.rangerSelectionTable cellForRowAtIndexPath:indexPath];
+    if (currentCell.isSelected) {
+        for (PowerRanger *ranger in self.rangersArray) {
+            if (ranger.rangerType == indexPath.row) {
+                [self.rangersArray removeObject:ranger];
+            }
+        }
+        for (PowerRanger *ranger in self.mapView.subviews) {
+            if (ranger.rangerType == indexPath.row) {
+                ranger.hidden = YES;
+            }
+        }
+        [currentCell enableCellWithType:indexPath.row];
+    } else {
+        [self addSquareInMapWithIndexPath:indexPath];
+        [currentCell disableCell];
+    }
+}
+
+-(void)addSquareInMapWithIndexPath:(NSIndexPath*)indexPath {
     self.rangerSquare = [[PowerRanger alloc] initWithType:indexPath.row];
-    UIPanGestureRecognizer* pgr = [[UIPanGestureRecognizer alloc]
-                                   initWithTarget:self
-                                   action:@selector(handlePan:)];
-    [self.rangerSquare addGestureRecognizer:pgr];
+    UIPanGestureRecognizer* panGesture = [[UIPanGestureRecognizer alloc]
+                                          initWithTarget:self
+                                          action:@selector(handlePan:)];
+    [self.rangerSquare addGestureRecognizer:panGesture];
     [self.rangerSquare setFrame:CGRectMake(self.mapView.center.x, self.mapView.center.y, RANGER_WIDTH, RANGER_HEIGHT)];
     self.rangerSquare.center = self.mapView.center;
     [self.mapView addSubview:self.rangerSquare];
+    [self.rangersArray addObject:self.rangerSquare];
 }
 
--(void)handlePan:(UIPanGestureRecognizer*)pgr; {
-    if (pgr.state == UIGestureRecognizerStateChanged) {
-        CGPoint center = pgr.view.center;
-        CGPoint translation = [pgr translationInView:pgr.view];
-        center = CGPointMake(center.x + translation.x,
-                             center.y + translation.y);
-        pgr.view.center = center;
-        [pgr setTranslation:CGPointZero inView:pgr.view];
+-(void)handlePan:(UIPanGestureRecognizer*)panGesture; {
+    if (panGesture.state == UIGestureRecognizerStateChanged) {
+        CGPoint newCenter = panGesture.view.center;
+        CGPoint translation = [panGesture translationInView:panGesture.view];
+        newCenter = CGPointMake(newCenter.x + translation.x,
+                             newCenter.y + translation.y);
+        const NSInteger offset = 15;
+        //Check whether boundary conditions are met
+        NSInteger yMin = self.mapView.bounds.origin.y + offset;
+        NSInteger yMax = self.mapView.bounds.size.height - offset;
+        NSInteger xMin = self.mapView.bounds.origin.x + offset;
+        NSInteger xMax = self.mapView.bounds.size.width - offset;
+        
+        BOOL inBounds = (newCenter.y >= yMin && newCenter.y <= yMax &&
+                         newCenter.x >= xMin && newCenter.x <= xMax);
+        
+        if  (inBounds) {
+            //if boundary conditions met : translate the view
+            panGesture.view.center = newCenter;
+            [panGesture setTranslation:CGPointZero inView:self.view];
+        }
     }
 }
 

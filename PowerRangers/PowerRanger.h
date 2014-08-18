@@ -13,7 +13,8 @@ typedef enum : NSUInteger {
     Yellow,
     Green,
     Blue,
-    Black
+    Black,
+    Gray
 } PowerRangerType;
 
 
@@ -23,6 +24,7 @@ static const int RANGER_HEIGHT = 30;
 @interface PowerRanger : UIView
 
 - (id)initWithType:(PowerRangerType)rangerType;
+- (void)reloadRangerWithType:(PowerRangerType)rangerType;
 @property (nonatomic, assign) PowerRangerType rangerType;
 @property (nonatomic, strong) NSString *rangerName;
 

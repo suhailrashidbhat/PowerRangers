@@ -41,6 +41,11 @@
         case Black:
             self.backgroundColor = [UIColor blackColor];
             self.rangerName = @"Black Ranger";
+            break;
+        case Gray:
+            self.backgroundColor = [UIColor grayColor];
+            self.rangerName = @"Gray Ranger";
+            break;
         default:
             break;
     }

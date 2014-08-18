@@ -22,6 +22,7 @@
 		1A77F75F19A1EB01001D2637 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1A77F75D19A1EB01001D2637 /* InfoPlist.strings */; };
 		1A77F76119A1EB01001D2637 /* PowerRangersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A77F76019A1EB01001D2637 /* PowerRangersTests.m */; };
 		1A77F76F19A1FCEF001D2637 /* PowerRanger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A77F76E19A1FCEF001D2637 /* PowerRanger.m */; };
+		1A77F78019A24625001D2637 /* PowerRangerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A77F77F19A24625001D2637 /* PowerRangerCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,8 @@
 		1A77F76019A1EB01001D2637 /* PowerRangersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PowerRangersTests.m; sourceTree = "<group>"; };
 		1A77F76D19A1FCEF001D2637 /* PowerRanger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerRanger.h; sourceTree = "<group>"; };
 		1A77F76E19A1FCEF001D2637 /* PowerRanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PowerRanger.m; sourceTree = "<group>"; };
+		1A77F77E19A24625001D2637 /* PowerRangerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerRangerCell.h; sourceTree = "<group>"; };
+		1A77F77F19A24625001D2637 /* PowerRangerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PowerRangerCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +138,8 @@
 				1A77F74319A1EB01001D2637 /* PowerRangers-Prefix.pch */,
 				1A77F76D19A1FCEF001D2637 /* PowerRanger.h */,
 				1A77F76E19A1FCEF001D2637 /* PowerRanger.m */,
+				1A77F77E19A24625001D2637 /* PowerRangerCell.h */,
+				1A77F77F19A24625001D2637 /* PowerRangerCell.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -256,6 +261,7 @@
 			files = (
 				1A77F74C19A1EB01001D2637 /* PowerRangerViewController.m in Sources */,
 				1A77F76F19A1FCEF001D2637 /* PowerRanger.m in Sources */,
+				1A77F78019A24625001D2637 /* PowerRangerCell.m in Sources */,
 				1A77F74619A1EB01001D2637 /* AppDelegate.m in Sources */,
 				1A77F74219A1EB01001D2637 /* main.m in Sources */,
 			);

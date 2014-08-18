@@ -11,8 +11,8 @@
 
 @interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) UILabel *powerRangerName;
 @property (nonatomic, strong) PowerRanger *rangerSquare;
 @property (strong, nonatomic) IBOutlet UIView *mapView;
+@property (weak, nonatomic) IBOutlet UITableView *rangerSelectionTable;
 
 @end
