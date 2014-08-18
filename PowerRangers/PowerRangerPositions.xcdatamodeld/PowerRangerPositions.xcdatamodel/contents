@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="14A314h" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="PowerRanger" syncable="YES">
-        <attribute name="rangerType" optional="YES" attributeType="Integer 64" minValueString="0" maxValueString="5" defaultValueString="5" syncable="YES"/>
+    <entity name="Ranger" representedClassName="Ranger" syncable="YES">
+        <attribute name="rangerName" optional="YES" attributeType="String" minValueString="0" maxValueString="5" syncable="YES"/>
         <attribute name="rangerXPosition" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
         <attribute name="rangerYPosition" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <userInfo>
-            <entry key="PowerRangerType" value="value"/>
-        </userInfo>
     </entity>
     <elements>
-        <element name="PowerRanger" positionX="-135" positionY="-1215" width="128" height="88"/>
+        <element name="Ranger" positionX="-135" positionY="-1215" width="128" height="88"/>
     </elements>
 </model>

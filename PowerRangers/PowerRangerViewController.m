@@ -8,31 +8,56 @@
 
 #import "PowerRangerViewController.h"
 #import "PowerRangerCell.h"
+#import "Ranger.h"
 
 @interface ViewController ()
 
-@property (nonatomic, strong) NSMutableDictionary *rangersDictionary;
+@property (weak, nonatomic) IBOutlet UILabel *xRed;
+@property (weak, nonatomic) IBOutlet UILabel *yRed;
+@property (weak, nonatomic) IBOutlet UILabel *xYellow;
+@property (weak, nonatomic) IBOutlet UILabel *yYellow;
+@property (weak, nonatomic) IBOutlet UILabel *xGreen;
+@property (weak, nonatomic) IBOutlet UILabel *yGreen;
+@property (weak, nonatomic) IBOutlet UILabel *xBlue;
+@property (weak, nonatomic) IBOutlet UILabel *yBlue;
+@property (weak, nonatomic) IBOutlet UILabel *xBlack;
+@property (weak, nonatomic) IBOutlet UILabel *yBlack;
 
 @end
 
 
-
 @implementation ViewController
 
-@synthesize managedObjectContext;
+@synthesize managedObjectContext = __managedObjectContext;
+@synthesize managedObjectModel = __managedObjectModel;
+@synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
     [self.view setBackgroundColor:[UIColor purpleColor]];
-    self.rangersDictionary = [NSMutableDictionary dictionary];
+    [self restoreAndPlotRanger];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)restoreAndPlotRanger {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSError *error;
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Ranger"
+                                              inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    for (Ranger *rangerInfo in fetchedObjects) {
+        NSLog(@"RangerType: %@", rangerInfo.rangerName);
+        NSLog(@"XPosition: %f", rangerInfo.rangerXPosition);
+        NSLog(@"YPosition: %f", rangerInfo.rangerYPosition);
+    }
 }
 
 #pragma mark - Table view data source and delegates
@@ -100,9 +125,167 @@
         if  (inBounds) {
             //if boundary conditions met : translate the view
             panGesture.view.center = newCenter;
+            NSLog(@"X: %f  Y == %f", newCenter.x, newCenter.y);
+//            PowerRanger *pRanger = (PowerRanger*)panGesture.view;
+////            [self SaveRangerPositionsforRangerName:pRanger.rangerName xPosition:panGesture.view.center.x yPosition:panGesture.view.center.y];
             [panGesture setTranslation:CGPointZero inView:self.view];
         }
     }
 }
+- (IBAction)SaveButtonClicked:(id)sender {
+    for (PowerRanger *rangers in self.mapView.subviews) {
+        NSString *xString = [NSString stringWithFormat:@"%2f", rangers.center.x];
+        NSString *yString = [NSString stringWithFormat:@"%2f", rangers.center.y];
+        switch (rangers.rangerType) {
+            case Red:
+                self.xRed.text = xString;
+                self.yRed.text = yString;
+                break;
+             case Yellow:
+                self.xYellow.text = xString;
+                self.yYellow.text = yString;
+                break;
+            case Green:
+                self.xGreen.text = xString;
+                self.yGreen.text = yString;
+                break;
+            case Blue:
+                self.xBlue.text = xString;
+                self.yBlue.text = yString;
+                break;
+            case Black:
+                self.xBlack.text = xString;
+                self.yBlack.text = yString;
+                break;
+            default:
+                break;
+        }
+        [self SaveRangerPositionsforRangerName:rangers.rangerName xPosition:rangers.center.x yPosition:rangers.center.y];
+    }
+}
+
+- (void)SaveRangerPositionsforRangerName:(NSString*)powerRangerName xPosition:(float)xPosition yPosition:(float)yPosition  {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    Ranger *ranger = [NSEntityDescription
+                      insertNewObjectForEntityForName:@"Ranger"
+                      inManagedObjectContext:context];
+    ranger.rangerName = powerRangerName;
+    ranger.rangerXPosition = xPosition;
+    ranger.rangerYPosition = yPosition;
+
+    NSError *error;
+    if (![context save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+    [self saveContext];
+    // Test
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Ranger"
+//                                              inManagedObjectContext:context];
+//    [fetchRequest setEntity:entity];
+//    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+////    for (Ranger *rangerInfo in fetchedObjects) {
+//        NSLog(@"RangerType: %@", rangerInfo.rangerName);
+//        NSLog(@"XPosition: %f", rangerInfo.rangerXPosition);
+//        NSLog(@"YPosition: %f", rangerInfo.rangerYPosition);
+//    }
+}
+
+-(void)saveContext
+{
+    NSError *error = nil;
+    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
+
+
+#pragma mark - Core Data stack
+
+// Returns the managed object context for the application.
+// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
+- (NSManagedObjectContext *)managedObjectContext
+{
+    if (__managedObjectContext != nil) {
+        return __managedObjectContext;
+    }
+    
+    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+    if (coordinator != nil) {
+        __managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [__managedObjectContext setPersistentStoreCoordinator:coordinator];
+    }
+    return __managedObjectContext;
+}
+
+// Returns the managed object model for the application.
+// If the model doesn't already exist, it is created from the application's model.
+- (NSManagedObjectModel *)managedObjectModel
+{
+    if (__managedObjectModel != nil) {
+        return __managedObjectModel;
+    }
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"PowerRangerPositions" withExtension:@"momd"];
+    __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    return __managedObjectModel;
+}
+
+// Returns the persistent store coordinator for the application.
+// If the coordinator doesn't already exist, it is created and the application's store added to it.
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
+{
+    if (__persistentStoreCoordinator != nil) {
+        return __persistentStoreCoordinator;
+    }
+    
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"PowerRangerPositions.sqlite"];
+    
+    NSError *error = nil;
+    __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+        /*
+         Replace this implementation with code to handle the error appropriately.
+         
+         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+         
+         Typical reasons for an error here include:
+         * The persistent store is not accessible;
+         * The schema for the persistent store is incompatible with current managed object model.
+         Check the error message to determine what the actual problem was.
+         
+         
+         If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
+         
+         If you encounter schema incompatibility errors during development, you can reduce their frequency by:
+         * Simply deleting the existing store:
+         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
+         
+         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
+         [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+         
+         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
+         
+         */
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    
+    return __persistentStoreCoordinator;
+}
+
+#pragma mark - Application's Documents directory
+
+// Returns the URL to the application's Documents directory.
+- (NSURL *)applicationDocumentsDirectory
+{
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
 
 @end

@@ -15,5 +15,9 @@
 @property (strong, nonatomic) IBOutlet UIView *mapView;
 @property (weak, nonatomic) IBOutlet UITableView *rangerSelectionTable;
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
+@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
+@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+-(void)saveContext;
 
 @end

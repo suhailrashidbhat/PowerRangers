@@ -21,6 +21,7 @@
 }
 
 - (void)reloadRangerWithType:(PowerRangerType)rangerType {
+    self.rangerType = rangerType;
     switch (rangerType) {
         case Red:
             self.backgroundColor = [UIColor redColor];
