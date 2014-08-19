@@ -127,14 +127,9 @@
 		1A77F73B19A1EB01001D2637 /* PowerRangers */ = {
 			isa = PBXGroup;
 			children = (
-				1A77F79019A25E7A001D2637 /* Views */,
 				1A77F78F19A25E5E001D2637 /* Model */,
-				1A77F74419A1EB01001D2637 /* AppDelegate.h */,
-				1A77F74519A1EB01001D2637 /* AppDelegate.m */,
-				1A77F74719A1EB01001D2637 /* Main.storyboard */,
-				1A77F74A19A1EB01001D2637 /* PowerRangerViewController.h */,
-				1A77F74B19A1EB01001D2637 /* PowerRangerViewController.m */,
-				1A77F74D19A1EB01001D2637 /* Images.xcassets */,
+				1A77F79019A25E7A001D2637 /* Views */,
+				1AAA902B19A2B64000C42485 /* Controllers */,
 				1A77F73C19A1EB01001D2637 /* Supporting Files */,
 			);
 			path = PowerRangers;
@@ -143,6 +138,9 @@
 		1A77F73C19A1EB01001D2637 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1A77F74419A1EB01001D2637 /* AppDelegate.h */,
+				1A77F74519A1EB01001D2637 /* AppDelegate.m */,
+				1A77F74D19A1EB01001D2637 /* Images.xcassets */,
 				1A77F73D19A1EB01001D2637 /* PowerRangers-Info.plist */,
 				1A77F73E19A1EB01001D2637 /* InfoPlist.strings */,
 				1A77F74119A1EB01001D2637 /* main.m */,
@@ -182,12 +180,22 @@
 		1A77F79019A25E7A001D2637 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1A77F74719A1EB01001D2637 /* Main.storyboard */,
 				1A77F76D19A1FCEF001D2637 /* PowerRanger.h */,
 				1A77F76E19A1FCEF001D2637 /* PowerRanger.m */,
 				1A77F77E19A24625001D2637 /* PowerRangerCell.h */,
 				1A77F77F19A24625001D2637 /* PowerRangerCell.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		1AAA902B19A2B64000C42485 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1A77F74A19A1EB01001D2637 /* PowerRangerViewController.h */,
+				1A77F74B19A1EB01001D2637 /* PowerRangerViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -500,6 +508,7 @@
 				1A77F76619A1EB01001D2637 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1A77F76719A1EB01001D2637 /* Build configuration list for PBXNativeTarget "PowerRangersTests" */ = {
 			isa = XCConfigurationList;
@@ -508,6 +517,7 @@
 				1A77F76919A1EB01001D2637 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

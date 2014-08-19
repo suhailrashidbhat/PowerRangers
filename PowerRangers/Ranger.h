@@ -12,6 +12,7 @@
 @interface Ranger : NSManagedObject
 
 @property (nonatomic, retain) NSString *rangerName;
+@property (nonatomic, retain) NSNumber *rangerType;
 @property (nonatomic, assign) float rangerXPosition;
 @property (nonatomic, assign) float rangerYPosition;
 

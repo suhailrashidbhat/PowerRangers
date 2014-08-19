@@ -11,6 +11,7 @@
 @implementation Ranger
 
 @dynamic rangerName;
+@dynamic rangerType;
 @dynamic rangerXPosition;
 @dynamic rangerYPosition;
 

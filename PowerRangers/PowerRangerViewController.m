@@ -39,12 +39,6 @@
     [self restoreAndPlotRanger];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)restoreAndPlotRanger {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSManagedObjectContext *context = [self managedObjectContext];
@@ -96,14 +90,24 @@
     }
 }
 
+#pragma mark - Map operations and saving positions.
+
 -(void)addSquareInMapWithIndexPath:(NSIndexPath*)indexPath {
     self.rangerSquare = [[PowerRanger alloc] initWithType:indexPath.row];
-    UIPanGestureRecognizer* panGesture = [[UIPanGestureRecognizer alloc]
-                                          initWithTarget:self
-                                          action:@selector(handlePan:)];
+    UIPanGestureRecognizer* panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     [self.rangerSquare addGestureRecognizer:panGesture];
     [self.rangerSquare setFrame:CGRectMake(self.mapView.center.x, self.mapView.center.y, RANGER_WIDTH, RANGER_HEIGHT)];
-    self.rangerSquare.center = self.mapView.center;
+    NSInteger xPoint = (self.mapView.frame.size.width - self.rangerSquare.frame.size.width)/2;
+    NSInteger yPoint = (self.mapView.frame.size.height - self.rangerSquare.frame.size.height)/2;
+   
+    // To distingiush two squares added same place.
+    for (PowerRanger *ranger in self.mapView.subviews) {
+        if (ranger.frame.origin.x == xPoint && ranger.frame.origin.y == yPoint) {
+            xPoint += 10;
+            yPoint += 10;
+        }
+    }
+    [self.rangerSquare setFrame:CGRectMake(xPoint, yPoint, RANGER_WIDTH, RANGER_HEIGHT)];
     self.rangerSquare.tag = indexPath.row;
     [self.mapView addSubview:self.rangerSquare];
 }
@@ -115,6 +119,7 @@
         newCenter = CGPointMake(newCenter.x + translation.x,
                              newCenter.y + translation.y);
         const NSInteger offset = 15;
+        
         //Check whether boundary conditions are met
         NSInteger yMin = self.mapView.bounds.origin.y + offset;
         NSInteger yMax = self.mapView.bounds.size.height - offset;
@@ -126,8 +131,6 @@
             //if boundary conditions met : translate the view
             panGesture.view.center = newCenter;
             NSLog(@"X: %f  Y == %f", newCenter.x, newCenter.y);
-//            PowerRanger *pRanger = (PowerRanger*)panGesture.view;
-////            [self SaveRangerPositionsforRangerName:pRanger.rangerName xPosition:panGesture.view.center.x yPosition:panGesture.view.center.y];
             [panGesture setTranslation:CGPointZero inView:self.view];
         }
     }
@@ -160,16 +163,55 @@
             default:
                 break;
         }
-        [self SaveRangerPositionsforRangerName:rangers.rangerName xPosition:rangers.center.x yPosition:rangers.center.y];
+        [self SaveRangerPositionsforRangerName:rangers.rangerName xPosition:rangers.center.x yPosition:rangers.center.y forType:rangers.rangerType];
     }
 }
+- (IBAction)DisplayResultsButtonClicked:(id)sender {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSError *error;
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Ranger"
+                                              inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    for (Ranger *rangerInfo in fetchedObjects) {
+        NSString *xString = [NSString stringWithFormat:@"%2f", rangerInfo.rangerXPosition];
+        NSString *yString = [NSString stringWithFormat:@"%2f", rangerInfo.rangerYPosition];
+        switch ((int)rangerInfo.rangerType) {
+            case Red:
+                self.xRed.text = xString;
+                self.yRed.text = yString;
+                break;
+            case Yellow:
+                self.xYellow.text = xString;
+                self.yYellow.text = yString;
+                break;
+            case Green:
+                self.xGreen.text = xString;
+                self.yGreen.text = yString;
+                break;
+            case Blue:
+                self.xBlue.text = xString;
+                self.yBlue.text = yString;
+                break;
+            case Black:
+                self.xBlack.text = xString;
+                self.yBlack.text = yString;
+                break;
+            default:
+                break;
+        }
+    }
+    
+}
 
-- (void)SaveRangerPositionsforRangerName:(NSString*)powerRangerName xPosition:(float)xPosition yPosition:(float)yPosition  {
+- (void)SaveRangerPositionsforRangerName:(NSString*)powerRangerName xPosition:(float)xPosition yPosition:(float)yPosition forType:(PowerRangerType)rangerType {
     NSManagedObjectContext *context = [self managedObjectContext];
     Ranger *ranger = [NSEntityDescription
                       insertNewObjectForEntityForName:@"Ranger"
                       inManagedObjectContext:context];
     ranger.rangerName = powerRangerName;
+    ranger.rangerType = [NSNumber numberWithInt:rangerType];
     ranger.rangerXPosition = xPosition;
     ranger.rangerYPosition = yPosition;
 
@@ -177,18 +219,7 @@
     if (![context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
-    [self saveContext];
-    // Test
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Ranger"
-//                                              inManagedObjectContext:context];
-//    [fetchRequest setEntity:entity];
-//    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-////    for (Ranger *rangerInfo in fetchedObjects) {
-//        NSLog(@"RangerType: %@", rangerInfo.rangerName);
-//        NSLog(@"XPosition: %f", rangerInfo.rangerXPosition);
-//        NSLog(@"YPosition: %f", rangerInfo.rangerYPosition);
-//    }
+    //[self saveContext];
 }
 
 -(void)saveContext
@@ -197,8 +228,6 @@
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
