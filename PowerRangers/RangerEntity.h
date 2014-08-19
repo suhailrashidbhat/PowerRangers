@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface Ranger : NSManagedObject
+@interface RangerEntity : NSManagedObject
 
 @property (nonatomic, retain) NSString *rangerName;
 @property (nonatomic, retain) NSNumber *rangerType;

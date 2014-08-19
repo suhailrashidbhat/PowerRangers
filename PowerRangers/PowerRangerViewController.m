@@ -8,7 +8,7 @@
 
 #import "PowerRangerViewController.h"
 #import "PowerRangerCell.h"
-#import "Ranger.h"
+#import "RangerEntity.h"
 
 @interface ViewController ()
 
@@ -43,11 +43,11 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSManagedObjectContext *context = [self managedObjectContext];
     NSError *error;
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Ranger"
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"RangerEntity"
                                               inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    for (Ranger *rangerInfo in fetchedObjects) {
+    for (RangerEntity *rangerInfo in fetchedObjects) {
         NSLog(@"RangerType: %@", rangerInfo.rangerName);
         NSLog(@"XPosition: %f", rangerInfo.rangerXPosition);
         NSLog(@"YPosition: %f", rangerInfo.rangerYPosition);
@@ -170,11 +170,11 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSManagedObjectContext *context = [self managedObjectContext];
     NSError *error;
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Ranger"
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"RangerEntity"
                                               inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    for (Ranger *rangerInfo in fetchedObjects) {
+    for (RangerEntity *rangerInfo in fetchedObjects) {
         NSString *xString = [NSString stringWithFormat:@"%2f", rangerInfo.rangerXPosition];
         NSString *yString = [NSString stringWithFormat:@"%2f", rangerInfo.rangerYPosition];
         switch ((int)rangerInfo.rangerType) {
@@ -207,8 +207,8 @@
 
 - (void)SaveRangerPositionsforRangerName:(NSString*)powerRangerName xPosition:(float)xPosition yPosition:(float)yPosition forType:(PowerRangerType)rangerType {
     NSManagedObjectContext *context = [self managedObjectContext];
-    Ranger *ranger = [NSEntityDescription
-                      insertNewObjectForEntityForName:@"Ranger"
+    RangerEntity *ranger = [NSEntityDescription
+                      insertNewObjectForEntityForName:@"RangerEntity"
                       inManagedObjectContext:context];
     ranger.rangerName = powerRangerName;
     ranger.rangerType = [NSNumber numberWithInt:rangerType];

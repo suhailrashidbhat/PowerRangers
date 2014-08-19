@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Suhail Rashid Bhat. All rights reserved.
 //
 
-#import "Ranger.h"
+#import "RangerEntity.h"
 
-@implementation Ranger
+@implementation RangerEntity
 
 @dynamic rangerName;
 @dynamic rangerType;
