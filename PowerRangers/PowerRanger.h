@@ -31,7 +31,7 @@ static const int RANGER_HEIGHT = 30;
 - (id)initWithType:(PowerRangerType)rangerType;
 - (void)reloadRangerWithType:(PowerRangerType)rangerType;
 @property (nonatomic, assign) PowerRangerType rangerType;
-@property (nonatomic, strong) NSString *rangerName;
+@property (nonatomic, copy) NSString *rangerName;
 
 
 @end

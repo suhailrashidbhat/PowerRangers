@@ -51,6 +51,10 @@
         NSLog(@"RangerType: %@", rangerInfo.rangerName);
         NSLog(@"XPosition: %f", rangerInfo.rangerXPosition);
         NSLog(@"YPosition: %f", rangerInfo.rangerYPosition);
+        
+        self.rangerSquare = [[PowerRanger alloc] initWithType:[rangerInfo.rangerType intValue]];
+        [self.rangerSquare setFrame:CGRectMake(rangerInfo.rangerXPosition, rangerInfo.rangerXPosition, RANGER_WIDTH, RANGER_HEIGHT)];
+        [self.mapView addSubview:self.rangerSquare];
     }
 }
 
@@ -163,9 +167,30 @@
             default:
                 break;
         }
+        [self deletePreviousValueForObjectType:rangers.rangerType];
         [self SaveRangerPositionsforRangerName:rangers.rangerName xPosition:rangers.center.x yPosition:rangers.center.y forType:rangers.rangerType];
     }
 }
+
+- (void)deletePreviousValueForObjectType:(PowerRangerType)objectType {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSFetchRequest * allRangers = [[NSFetchRequest alloc] init];
+    [allRangers setEntity:[NSEntityDescription entityForName:@"RangerEntity" inManagedObjectContext:context]];
+    [allRangers setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+    
+    NSError * error = nil;
+    NSArray * rangers = [context executeFetchRequest:allRangers error:&error];
+    //error handling goes here
+    for (NSManagedObject *ranger in rangers) {
+        RangerEntity *entity = (RangerEntity*)ranger;
+        if([entity.rangerType intValue] == objectType) {
+            [context deleteObject:ranger];
+        }
+    }
+    NSError *saveError = nil;
+    [context save:&saveError];
+}
+
 - (IBAction)DisplayResultsButtonClicked:(id)sender {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSManagedObjectContext *context = [self managedObjectContext];
@@ -219,7 +244,7 @@
     if (![context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
-    //[self saveContext];
+    [self saveContext];
 }
 
 -(void)saveContext
