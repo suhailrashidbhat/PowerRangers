@@ -25,27 +25,27 @@
     switch (rangerType) {
         case Red:
             self.backgroundColor = [UIColor redColor];
-            self.rangerName = @"Red Ranger";
+            self.rangerName = NSLocalizedString(@"RED", nil);
             break;
         case Yellow:
             self.backgroundColor = [UIColor yellowColor];
-            self.rangerName = @"Yellow Ranger";
+            self.rangerName = NSLocalizedString(@"YELLOW", nil);
             break;
         case Green:
             self.backgroundColor = [UIColor greenColor];
-            self.rangerName = @"Green Ranger";
+            self.rangerName = NSLocalizedString(@"GREEN", nil);
             break;
         case Blue:
             self.backgroundColor = [UIColor blueColor];
-            self.rangerName = @"Blue Ranger";
+            self.rangerName = NSLocalizedString(@"BLUE", nil);
             break;
         case Black:
             self.backgroundColor = [UIColor blackColor];
-            self.rangerName = @"Black Ranger";
+            self.rangerName = NSLocalizedString(@"BLACK", nil);
             break;
         case Gray:
             self.backgroundColor = [UIColor grayColor];
-            self.rangerName = @"Gray Ranger";
+            self.rangerName = NSLocalizedString(@"GRAY", nil);
             break;
         default:
             break;

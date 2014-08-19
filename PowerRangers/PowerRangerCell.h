@@ -15,7 +15,6 @@
 @property(nonatomic, strong) UILabel *rangerName;
 @property(nonatomic, assign) BOOL isSelected;
 
--(void) InitializeCellWithIndexPath:(NSIndexPath*)indexPath;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withIndexPath:(NSIndexPath*)indexPath;
 - (void) disableCell;
 - (void) enableCellWithType:(PowerRangerType)rangerType;

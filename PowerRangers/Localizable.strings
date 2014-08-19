@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  PowerRangers
+
+  Created by Suhail Rashid Bhat on 8/19/14.
+  Copyright (c) 2014 Suhail Rashid Bhat. All rights reserved.
+*/
+
+
+"RED"       = "Red Ranger";
+"YELLOW"    = "Yellow Ranger";
+"GREEN"     = "Green Ranger";
+"BLUE"      = "Blue Ranger";
+"BLACK"     = "Black Ranger";
+"GRAY"      = "Gray Ranger";

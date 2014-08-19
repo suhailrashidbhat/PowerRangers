@@ -26,6 +26,7 @@
 		1A77F78319A25824001D2637 /* PowerRangerPositions.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A77F78119A25824001D2637 /* PowerRangerPositions.xcdatamodeld */; };
 		1A77F78B19A25D4E001D2637 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A77F78A19A25D4E001D2637 /* CoreData.framework */; };
 		1A77F78E19A25D7D001D2637 /* Ranger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A77F78D19A25D7D001D2637 /* Ranger.m */; };
+		1AAA903019A3259800C42485 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1AAA902F19A3259800C42485 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		1A77F78A19A25D4E001D2637 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1A77F78C19A25D7D001D2637 /* Ranger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ranger.h; sourceTree = "<group>"; };
 		1A77F78D19A25D7D001D2637 /* Ranger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ranger.m; sourceTree = "<group>"; };
+		1AAA902F19A3259800C42485 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				1A77F79019A25E7A001D2637 /* Views */,
 				1AAA902B19A2B64000C42485 /* Controllers */,
 				1A77F73C19A1EB01001D2637 /* Supporting Files */,
+				1AAA902F19A3259800C42485 /* Localizable.strings */,
 			);
 			path = PowerRangers;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A77F74E19A1EB01001D2637 /* Images.xcassets in Resources */,
+				1AAA903019A3259800C42485 /* Localizable.strings in Resources */,
 				1A77F74019A1EB01001D2637 /* InfoPlist.strings in Resources */,
 				1A77F74919A1EB01001D2637 /* Main.storyboard in Resources */,
 			);

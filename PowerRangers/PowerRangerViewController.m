@@ -35,7 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor purpleColor]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     [self restoreAndPlotRanger];
 }
 
