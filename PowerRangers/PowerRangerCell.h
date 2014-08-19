@@ -6,8 +6,17 @@
 //  Copyright (c) 2014 Suhail Rashid Bhat. All rights reserved.
 //
 
+/*
+ This is a UI component which will create the Power Ranger Cell in the table it will have 
+  PowerRangerSquare | RangerNameLabel.
+ */
+
 #import <UIKit/UIKit.h>
 #import "PowerRanger.h"
+
+static const int RANGER_CELL_LABEL_WIDTH = 150;
+static const int RANGER_CELL_LABEL_HEIGHT = 30;
+static const int OFFSET = 10;
 
 @interface PowerRangerCell : UITableViewCell
 

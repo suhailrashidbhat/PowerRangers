@@ -6,6 +6,11 @@
 //  Copyright (c) 2014 Suhail Rashid Bhat. All rights reserved.
 //
 
+
+/*
+ This is a UI component which will create the Power Ranger Square in the map and in the PowerRangerCell. 
+ */
+
 #import <UIKit/UIKit.h>
 
 typedef enum : NSUInteger {

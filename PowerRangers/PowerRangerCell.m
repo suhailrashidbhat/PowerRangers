@@ -22,11 +22,6 @@
     return self;
 }
 
-- (void)awakeFromNib
-{
-    // Initialization code
-}
-
 - (void) disableCell {
     self.isSelected = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -44,23 +39,16 @@
 -(void)addSquareAndLabelWithIndexPath:(NSIndexPath*)indexPath {
     self.rangerName = [[UILabel alloc] init];
     self.rangerSquare = [[PowerRanger alloc] initWithType:indexPath.row];
-    const NSInteger labelWidth = 150;
-    const NSInteger labelHeight = 30;
-    const NSInteger xOffsetRangerSquare = 10;
-    const NSInteger xOffsetLabel = xOffsetRangerSquare + RANGER_WIDTH + 20;
-    const NSInteger yOffset = 10;
+    const NSInteger labelWidth = RANGER_CELL_LABEL_WIDTH;
+    const NSInteger labelHeight = RANGER_CELL_LABEL_HEIGHT;
+    const NSInteger xOffsetRangerSquare = OFFSET;
+    const NSInteger xOffsetLabel = xOffsetRangerSquare + RANGER_WIDTH + (OFFSET*2);
+    const NSInteger yOffset = OFFSET;
     [self.rangerSquare setFrame:CGRectMake(xOffsetRangerSquare, yOffset, RANGER_WIDTH, RANGER_HEIGHT)];
     [self.rangerName setFrame:CGRectMake(xOffsetLabel, yOffset, labelWidth, labelHeight)];
     self.rangerName.text = self.rangerSquare.rangerName;
     [self addSubview:self.rangerSquare];
     [self addSubview:self.rangerName];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end
