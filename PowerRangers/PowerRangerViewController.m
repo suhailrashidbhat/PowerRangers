@@ -14,7 +14,6 @@
 #import "AppDelegate.h"
 
 static const int OFFSET = 10;
-static const int ANIMATION_DURATION = 0.3;
 static const int SECTION_COUNT = 1;
 static const int ROW_COUNT = 5;
 
@@ -119,10 +118,7 @@ static const int ROW_COUNT = 5;
             yPoint += OFFSET;
         }
     }
-    [self.rangerSquare setFrame:CGRectMake(0, 0, RANGER_WIDTH, RANGER_HEIGHT)];
-    [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-        [self.rangerSquare setFrame:CGRectMake(xPoint, yPoint, RANGER_WIDTH, RANGER_HEIGHT)];
-    }];
+    [self.rangerSquare setFrame:CGRectMake(xPoint, yPoint, RANGER_WIDTH, RANGER_HEIGHT)];
 }
 
 -(void) addSquareWithType:(PowerRangerType)rangerType {
