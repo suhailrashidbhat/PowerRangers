@@ -10,6 +10,7 @@
 #import "PowerRangerCell.h"
 #import "RangerEntity.h"
 
+
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *xRed;
@@ -99,6 +100,9 @@
     }
 }
 
+
+#pragma mark - Map operations and saving positions.
+
 - (BOOL)checkIfRangerIsInTheField:(PowerRangerType)rangerType {
     for (PowerRanger *ranger in self.mapView.subviews) {
         if (ranger.rangerType == rangerType) {
@@ -108,7 +112,6 @@
     return FALSE;
 }
 
-#pragma mark - Map operations and saving positions.
 
 -(void)addSquareInMapWithRangerType:(PowerRangerType)rangerType {
     [self addSquareWithType:rangerType];
@@ -185,6 +188,13 @@
         [self deletePreviousValueForObjectType:rangers.rangerType];
         [self saveRangerPositionsforRangerName:rangers.rangerName xPosition:rangers.center.x yPosition:rangers.center.y forType:rangers.rangerType];
     }
+}
+- (IBAction)resetButtonClicked:(id)sender {
+    for (PowerRanger *ranger in self.mapView.subviews) {
+        [ranger removeFromSuperview];
+        [self deletePreviousValueForObjectType:ranger.rangerType];
+    }
+    [self.rangerSelectionTable reloadData];
 }
 
 - (void)deletePreviousValueForObjectType:(PowerRangerType)objectType {
