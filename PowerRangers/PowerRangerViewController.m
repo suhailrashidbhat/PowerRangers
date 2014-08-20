@@ -51,11 +51,8 @@
         NSLog(@"RangerType: %@", rangerInfo.rangerName);
         NSLog(@"XPosition: %f", rangerInfo.rangerXPosition);
         NSLog(@"YPosition: %f", rangerInfo.rangerYPosition);
-        
-        self.rangerSquare = [[PowerRanger alloc] initWithType:[rangerInfo.rangerType intValue]];
+        [self addSquareWithType:[rangerInfo.rangerType intValue]];
         [self.rangerSquare setFrame:CGRectMake(rangerInfo.rangerXPosition, rangerInfo.rangerYPosition, RANGER_WIDTH, RANGER_HEIGHT)];
-        [self.mapView addSubview:self.rangerSquare];
-        [self.mapView bringSubviewToFront:self.rangerSquare];
     }
 }
 
@@ -97,7 +94,7 @@
         }
         [currentCell enableCellWithType:indexPath.row];
     } else {
-        [self addSquareInMapWithIndexPath:indexPath];
+        [self addSquareInMapWithRangerType:indexPath.row];
         [currentCell disableCell];
     }
 }
@@ -113,14 +110,10 @@
 
 #pragma mark - Map operations and saving positions.
 
--(void)addSquareInMapWithIndexPath:(NSIndexPath*)indexPath {
-    self.rangerSquare = [[PowerRanger alloc] initWithType:indexPath.row];
-    UIPanGestureRecognizer* panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-    [self.rangerSquare addGestureRecognizer:panGesture];
-    [self.rangerSquare setFrame:CGRectMake(self.mapView.center.x, self.mapView.center.y, RANGER_WIDTH, RANGER_HEIGHT)];
+-(void)addSquareInMapWithRangerType:(PowerRangerType)rangerType {
+    [self addSquareWithType:rangerType];
     NSInteger xPoint = (self.mapView.frame.size.width - self.rangerSquare.frame.size.width)/2;
     NSInteger yPoint = (self.mapView.frame.size.height - self.rangerSquare.frame.size.height)/2;
-   
     // To distingiush two squares added same place.
     for (PowerRanger *ranger in self.mapView.subviews) {
         if (ranger.frame.origin.x == xPoint && ranger.frame.origin.y == yPoint) {
@@ -129,7 +122,12 @@
         }
     }
     [self.rangerSquare setFrame:CGRectMake(xPoint, yPoint, RANGER_WIDTH, RANGER_HEIGHT)];
-    //self.rangerSquare.rangerType = indexPath.row;
+}
+
+-(void) addSquareWithType:(PowerRangerType)rangerType {
+    self.rangerSquare = [[PowerRanger alloc] initWithType:rangerType];
+    UIPanGestureRecognizer* panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    [self.rangerSquare addGestureRecognizer:panGesture];
     [self.mapView addSubview:self.rangerSquare];
 }
 
@@ -139,9 +137,9 @@
         CGPoint translation = [panGesture translationInView:panGesture.view];
         newCenter = CGPointMake(newCenter.x + translation.x,
                              newCenter.y + translation.y);
-        const NSInteger offset = 15;
         
         //Check whether boundary conditions are met
+        const NSInteger offset = 15;
         NSInteger yMin = self.mapView.bounds.origin.y + offset;
         NSInteger yMax = self.mapView.bounds.size.height - offset;
         NSInteger xMin = self.mapView.bounds.origin.x + offset;
