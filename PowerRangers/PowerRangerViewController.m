@@ -11,7 +11,12 @@
 #import "RangerEntity.h"
 #import "AddPowerRangerViewController.h"
 #import "QuartzCore/QuartzCore.h"
+#import "AppDelegate.h"
 
+static const int OFFSET = 10;
+static const int ANIMATION_DURATION = 0.3;
+static const int SECTION_COUNT = 1;
+static const int ROW_COUNT = 5;
 
 @interface ViewController ()
 
@@ -32,10 +37,10 @@
     self.rangerSelectionTable.layer.borderColor = [UIColor blackColor].CGColor;
     self.mapView.layer.borderWidth = 2.0;
     self.mapView.layer.borderColor = [UIColor blackColor].CGColor;
-    [self restoreAndPlotRanger];
+    [self restoreAndPlotRangers];
 }
 
-- (void)restoreAndPlotRanger {
+- (void)restoreAndPlotRangers {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSManagedObjectContext *context = [self managedObjectContext];
     NSError *error;
@@ -52,11 +57,11 @@
 #pragma mark - Table view data source and delegates
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return SECTION_COUNT;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return ROW_COUNT;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -79,7 +84,6 @@
     [self.rangerSelectionTable deselectRowAtIndexPath:indexPath animated:YES];
     PowerRangerCell *currentCell = (PowerRangerCell*)[self.rangerSelectionTable cellForRowAtIndexPath:indexPath];
     if (currentCell.isSelected) {
-        [self deletePreviousValueForObjectType:indexPath.row];
         for (PowerRanger *rangerView in self.mapView.subviews) {
             if (rangerView.rangerType == indexPath.row) {
                 [rangerView removeFromSuperview];
@@ -111,12 +115,12 @@
     // To distingiush two squares added same place.
     for (PowerRanger *ranger in self.mapView.subviews) {
         if (ranger.frame.origin.x == xPoint && ranger.frame.origin.y == yPoint) {
-            xPoint += 10;
-            yPoint += 10;
+            xPoint += OFFSET;
+            yPoint += OFFSET;
         }
     }
     [self.rangerSquare setFrame:CGRectMake(0, 0, RANGER_WIDTH, RANGER_HEIGHT)];
-    [UIView animateWithDuration:0.6 animations:^{
+    [UIView animateWithDuration:ANIMATION_DURATION animations:^{
         [self.rangerSquare setFrame:CGRectMake(xPoint, yPoint, RANGER_WIDTH, RANGER_HEIGHT)];
     }];
 }
@@ -136,11 +140,10 @@
                              newCenter.y + translation.y);
         
         //Check whether boundary conditions are met
-        const NSInteger offset = 15;
-        NSInteger yMin = self.mapView.bounds.origin.y + offset;
-        NSInteger yMax = self.mapView.bounds.size.height - offset;
-        NSInteger xMin = self.mapView.bounds.origin.x + offset;
-        NSInteger xMax = self.mapView.bounds.size.width - offset;
+        NSInteger yMin = self.mapView.bounds.origin.y + RANGER_WIDTH/2;
+        NSInteger yMax = self.mapView.bounds.size.height - RANGER_WIDTH/2;
+        NSInteger xMin = self.mapView.bounds.origin.x + RANGER_WIDTH/2;
+        NSInteger xMax = self.mapView.bounds.size.width - RANGER_WIDTH/2;
         BOOL inBounds = (newCenter.y >= yMin && newCenter.y <= yMax &&
                          newCenter.x >= xMin && newCenter.x <= xMax);
         if  (inBounds) {
@@ -151,8 +154,8 @@
     }
 }
 - (IBAction)saveButtonClicked:(id)sender {
+    [self deleteAllPrevousPositions];
     for (PowerRanger *rangers in self.mapView.subviews) {
-        [self deletePreviousValueForObjectType:rangers.rangerType];
         [self saveRangerPositionsforRangerName:rangers.rangerName xPosition:rangers.center.x yPosition:rangers.center.y forType:rangers.rangerType];
     }
     UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"POWER_RANGER_POSITION_ALERT", nil) message:NSLocalizedString(@"POSITION_SAVED_ALERT", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
@@ -160,9 +163,9 @@
 }
 
 - (IBAction)resetButtonClicked:(id)sender {
+    [self deleteAllPrevousPositions];
     for (PowerRanger *ranger in self.mapView.subviews) {
         [ranger removeFromSuperview];
-        [self deletePreviousValueForObjectType:ranger.rangerType];
     }
     [self.rangerSelectionTable reloadData];
 }
@@ -185,6 +188,23 @@
     NSError *saveError = nil;
     [context save:&saveError];
 }
+
+- (void)deleteAllPrevousPositions {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSFetchRequest * allRangers = [[NSFetchRequest alloc] init];
+    [allRangers setEntity:[NSEntityDescription entityForName:@"RangerEntity" inManagedObjectContext:context]];
+    [allRangers setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+    
+    NSError * error = nil;
+    NSArray * rangers = [context executeFetchRequest:allRangers error:&error];
+    //error handling goes here
+    for (NSManagedObject *ranger in rangers) {
+        [context deleteObject:ranger];
+    }
+    NSError *saveError = nil;
+    [context save:&saveError];
+}
+
 
 - (void)saveRangerPositionsforRangerName:(NSString*)powerRangerName xPosition:(float)xPosition yPosition:(float)yPosition forType:(PowerRangerType)rangerType {
     NSManagedObjectContext *context = [self managedObjectContext];
@@ -248,8 +268,8 @@
     if (__persistentStoreCoordinator != nil) {
         return __persistentStoreCoordinator;
     }
-    
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"PowerRangerPositions.sqlite"];
+    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    NSURL *storeURL = [[appDelegate applicationDocumentsDirectory] URLByAppendingPathComponent:@"PowerRangerPositions.sqlite"];
     
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
@@ -260,13 +280,5 @@
     
     return __persistentStoreCoordinator;
 }
-
-#pragma mark - Application's Documents directory
-
-// Returns the URL to the application's Documents directory.
-- (NSURL *)applicationDocumentsDirectory {
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-}
-
 
 @end

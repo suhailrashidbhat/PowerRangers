@@ -16,7 +16,7 @@
 
 static const int RANGER_CELL_LABEL_WIDTH = 150;
 static const int RANGER_CELL_LABEL_HEIGHT = 30;
-static const int OFFSET = 10;
+static const int CELL_OFFSET = 10;
 
 @interface PowerRangerCell : UITableViewCell
 

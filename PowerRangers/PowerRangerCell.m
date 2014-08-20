@@ -41,9 +41,9 @@
     self.rangerSquare = [[PowerRanger alloc] initWithType:indexPath.row];
     const NSInteger labelWidth = RANGER_CELL_LABEL_WIDTH;
     const NSInteger labelHeight = RANGER_CELL_LABEL_HEIGHT;
-    const NSInteger xOffsetRangerSquare = OFFSET;
-    const NSInteger xOffsetLabel = xOffsetRangerSquare + RANGER_WIDTH + (OFFSET*2);
-    const NSInteger yOffset = OFFSET;
+    const NSInteger xOffsetRangerSquare = CELL_OFFSET;
+    const NSInteger xOffsetLabel = xOffsetRangerSquare + RANGER_WIDTH + (CELL_OFFSET*2);
+    const NSInteger yOffset = CELL_OFFSET;
     [self.rangerSquare setFrame:CGRectMake(xOffsetRangerSquare, yOffset, RANGER_WIDTH, RANGER_HEIGHT)];
     [self.rangerName setFrame:CGRectMake(xOffsetLabel, yOffset, labelWidth, labelHeight)];
     self.rangerName.text = self.rangerSquare.rangerName;
