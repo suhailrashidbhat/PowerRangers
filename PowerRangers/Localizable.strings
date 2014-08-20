@@ -7,9 +7,17 @@
 */
 
 
+//Power Ranger Colors
+
 "RED"       = "Red Ranger";
 "YELLOW"    = "Yellow Ranger";
 "GREEN"     = "Green Ranger";
 "BLUE"      = "Blue Ranger";
 "BLACK"     = "Black Ranger";
 "GRAY"      = "Gray Ranger";
+
+// Alerts
+
+"POWER_RANGER_POSITION_ALERT" = "Ranger Positions";
+"POSITION_SAVED_ALERT"  = "Positions Saved Successfully!";
+"OK"    = "Ok";

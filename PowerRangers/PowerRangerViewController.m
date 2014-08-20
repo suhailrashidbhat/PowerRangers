@@ -33,6 +33,8 @@
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 
+#pragma mark - View lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -49,9 +51,6 @@
     [fetchRequest setEntity:entity];
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     for (RangerEntity *rangerInfo in fetchedObjects) {
-        NSLog(@"RangerType: %@", rangerInfo.rangerName);
-        NSLog(@"XPosition: %f", rangerInfo.rangerXPosition);
-        NSLog(@"YPosition: %f", rangerInfo.rangerYPosition);
         [self addSquareWithType:[rangerInfo.rangerType intValue]];
         [self.rangerSquare setFrame:CGRectMake(rangerInfo.rangerXPosition, rangerInfo.rangerYPosition, RANGER_WIDTH, RANGER_HEIGHT)];
     }
@@ -124,7 +123,11 @@
             yPoint += 10;
         }
     }
-    [self.rangerSquare setFrame:CGRectMake(xPoint, yPoint, RANGER_WIDTH, RANGER_HEIGHT)];
+    //Simple Animation from top left corner.
+    [self.rangerSquare setFrame:CGRectMake(0, 0, RANGER_WIDTH, RANGER_HEIGHT)];
+    [UIView animateWithDuration:0.6 animations:^{
+        [self.rangerSquare setFrame:CGRectMake(xPoint, yPoint, RANGER_WIDTH, RANGER_HEIGHT)];
+    }];
 }
 
 -(void) addSquareWithType:(PowerRangerType)rangerType {
@@ -188,7 +191,10 @@
         [self deletePreviousValueForObjectType:rangers.rangerType];
         [self saveRangerPositionsforRangerName:rangers.rangerName xPosition:rangers.center.x yPosition:rangers.center.y forType:rangers.rangerType];
     }
+    UIAlertView *successAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"POWER_RANGER_POSITION_ALERT", nil) message:NSLocalizedString(@"POSITION_SAVED_ALERT", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
+    [successAlert show];
 }
+
 - (IBAction)resetButtonClicked:(id)sender {
     for (PowerRanger *ranger in self.mapView.subviews) {
         [ranger removeFromSuperview];
@@ -216,45 +222,6 @@
     [context save:&saveError];
 }
 
-- (IBAction)displayResultsButtonClicked:(id)sender {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSError *error;
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"RangerEntity"
-                                              inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    for (RangerEntity *rangerInfo in fetchedObjects) {
-        NSString *xString = [NSString stringWithFormat:@"%2f", rangerInfo.rangerXPosition];
-        NSString *yString = [NSString stringWithFormat:@"%2f", rangerInfo.rangerYPosition];
-        switch ((int)rangerInfo.rangerType) {
-            case Red:
-                self.xRed.text = xString;
-                self.yRed.text = yString;
-                break;
-            case Yellow:
-                self.xYellow.text = xString;
-                self.yYellow.text = yString;
-                break;
-            case Green:
-                self.xGreen.text = xString;
-                self.yGreen.text = yString;
-                break;
-            case Blue:
-                self.xBlue.text = xString;
-                self.yBlue.text = yString;
-                break;
-            case Black:
-                self.xBlack.text = xString;
-                self.yBlack.text = yString;
-                break;
-            default:
-                break;
-        }
-    }
-    
-}
-
 - (void)saveRangerPositionsforRangerName:(NSString*)powerRangerName xPosition:(float)xPosition yPosition:(float)yPosition forType:(PowerRangerType)rangerType {
     NSManagedObjectContext *context = [self managedObjectContext];
     RangerEntity *ranger = [NSEntityDescription
@@ -272,8 +239,7 @@
     [self saveContext];
 }
 
--(void)saveContext
-{
+-(void)saveContext {
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {
@@ -328,29 +294,6 @@
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-         
-         Typical reasons for an error here include:
-         * The persistent store is not accessible;
-         * The schema for the persistent store is incompatible with current managed object model.
-         Check the error message to determine what the actual problem was.
-         
-         
-         If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
-         
-         If you encounter schema incompatibility errors during development, you can reduce their frequency by:
-         * Simply deleting the existing store:
-         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
-         
-         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
-         [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
-         
-         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
-         
-         */
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }

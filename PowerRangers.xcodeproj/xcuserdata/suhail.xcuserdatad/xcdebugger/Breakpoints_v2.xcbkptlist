@@ -29,22 +29,6 @@
             timestampString = "430245067.673224"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "-restoreAndPlotRanger"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PowerRangers/PowerRangerViewController.m"
-            timestampString = "430245067.673224"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
             startingLineNumber = "87"
             endingLineNumber = "87"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
@@ -58,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PowerRangers/PowerRangerViewController.m"
-            timestampString = "430245178.106127"
+            timestampString = "430246860.079214"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "-deletePreviousValueForObjectType:"
             landmarkType = "5">
          </BreakpointContent>
