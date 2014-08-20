@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A17B6F019A50F7E0032E165 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A17B6EF19A50F7E0032E165 /* MapKit.framework */; };
+		1A17B6F319A51C520032E165 /* AddPowerRangerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A17B6F219A51C520032E165 /* AddPowerRangerViewController.m */; };
 		1A77F73619A1EB01001D2637 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A77F73519A1EB01001D2637 /* Foundation.framework */; };
 		1A77F73819A1EB01001D2637 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A77F73719A1EB01001D2637 /* CoreGraphics.framework */; };
 		1A77F73A19A1EB01001D2637 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A77F73919A1EB01001D2637 /* UIKit.framework */; };
@@ -40,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A17B6EF19A50F7E0032E165 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		1A17B6F119A51C520032E165 /* AddPowerRangerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPowerRangerViewController.h; sourceTree = "<group>"; };
+		1A17B6F219A51C520032E165 /* AddPowerRangerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPowerRangerViewController.m; sourceTree = "<group>"; };
 		1A77F73219A1EB01001D2637 /* PowerRangers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PowerRangers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A77F73519A1EB01001D2637 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1A77F73719A1EB01001D2637 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -75,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A17B6F019A50F7E0032E165 /* MapKit.framework in Frameworks */,
 				1A77F78B19A25D4E001D2637 /* CoreData.framework in Frameworks */,
 				1A77F73819A1EB01001D2637 /* CoreGraphics.framework in Frameworks */,
 				1A77F73A19A1EB01001D2637 /* UIKit.framework in Frameworks */,
@@ -117,6 +123,7 @@
 		1A77F73419A1EB01001D2637 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1A17B6EF19A50F7E0032E165 /* MapKit.framework */,
 				1A77F78A19A25D4E001D2637 /* CoreData.framework */,
 				1A77F73519A1EB01001D2637 /* Foundation.framework */,
 				1A77F73719A1EB01001D2637 /* CoreGraphics.framework */,
@@ -197,6 +204,8 @@
 			children = (
 				1A77F74A19A1EB01001D2637 /* PowerRangerViewController.h */,
 				1A77F74B19A1EB01001D2637 /* PowerRangerViewController.m */,
+				1A17B6F119A51C520032E165 /* AddPowerRangerViewController.h */,
+				1A17B6F219A51C520032E165 /* AddPowerRangerViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -304,6 +313,7 @@
 				1A77F76F19A1FCEF001D2637 /* PowerRanger.m in Sources */,
 				1A77F78019A24625001D2637 /* PowerRangerCell.m in Sources */,
 				1A77F78319A25824001D2637 /* PowerRangerPositions.xcdatamodeld in Sources */,
+				1A17B6F319A51C520032E165 /* AddPowerRangerViewController.m in Sources */,
 				1A77F74619A1EB01001D2637 /* AppDelegate.m in Sources */,
 				1A77F74219A1EB01001D2637 /* main.m in Sources */,
 			);

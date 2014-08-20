@@ -9,6 +9,7 @@
 #import "PowerRangerViewController.h"
 #import "PowerRangerCell.h"
 #import "RangerEntity.h"
+#import "AddPowerRangerViewController.h"
 
 
 @interface ViewController ()
@@ -29,6 +30,13 @@
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self restoreAndPlotRanger];
+    
+    // We could use the real MKMap... in version 2! 
+    /*
+    self.mapVyu = [[MKMapView alloc] initWithFrame:self.mapView.frame];
+    self.mapVyu.mapType = MKMapTypeHybrid;
+    [self.view addSubview:self.mapVyu];
+     */
 }
 
 - (void)restoreAndPlotRanger {
