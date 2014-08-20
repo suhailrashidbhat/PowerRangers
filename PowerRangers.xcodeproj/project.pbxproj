@@ -101,6 +101,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A17B6F719A526AC0032E165 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1AAA902F19A3259800C42485 /* Localizable.strings */,
+				1A77F74D19A1EB01001D2637 /* Images.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		1A77F72919A1EB00001D2637 = {
 			isa = PBXGroup;
 			children = (
@@ -139,8 +148,8 @@
 				1A77F78F19A25E5E001D2637 /* Model */,
 				1A77F79019A25E7A001D2637 /* Views */,
 				1AAA902B19A2B64000C42485 /* Controllers */,
+				1A17B6F719A526AC0032E165 /* Resources */,
 				1A77F73C19A1EB01001D2637 /* Supporting Files */,
-				1AAA902F19A3259800C42485 /* Localizable.strings */,
 			);
 			path = PowerRangers;
 			sourceTree = "<group>";
@@ -150,7 +159,6 @@
 			children = (
 				1A77F74419A1EB01001D2637 /* AppDelegate.h */,
 				1A77F74519A1EB01001D2637 /* AppDelegate.m */,
-				1A77F74D19A1EB01001D2637 /* Images.xcassets */,
 				1A77F73D19A1EB01001D2637 /* PowerRangers-Info.plist */,
 				1A77F73E19A1EB01001D2637 /* InfoPlist.strings */,
 				1A77F74119A1EB01001D2637 /* main.m */,

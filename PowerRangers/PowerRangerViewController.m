@@ -10,6 +10,7 @@
 #import "PowerRangerCell.h"
 #import "RangerEntity.h"
 #import "AddPowerRangerViewController.h"
+#import "QuartzCore/QuartzCore.h"
 
 
 @interface ViewController ()
@@ -28,7 +29,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    self.rangerSelectionTable.layer.borderWidth = 2.0;
+    self.rangerSelectionTable.layer.borderColor = [UIColor blackColor].CGColor;
+    self.mapView.layer.borderWidth = 2.0;
+    self.mapView.layer.borderColor = [UIColor blackColor].CGColor;
     [self restoreAndPlotRanger];
     
     // We could use the real MKMap... in version 2! 
