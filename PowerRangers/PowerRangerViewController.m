@@ -13,17 +13,6 @@
 
 @interface ViewController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *xRed;
-@property (weak, nonatomic) IBOutlet UILabel *yRed;
-@property (weak, nonatomic) IBOutlet UILabel *xYellow;
-@property (weak, nonatomic) IBOutlet UILabel *yYellow;
-@property (weak, nonatomic) IBOutlet UILabel *xGreen;
-@property (weak, nonatomic) IBOutlet UILabel *yGreen;
-@property (weak, nonatomic) IBOutlet UILabel *xBlue;
-@property (weak, nonatomic) IBOutlet UILabel *yBlue;
-@property (weak, nonatomic) IBOutlet UILabel *xBlack;
-@property (weak, nonatomic) IBOutlet UILabel *yBlack;
-
 @end
 
 
@@ -162,32 +151,6 @@
 }
 - (IBAction)saveButtonClicked:(id)sender {
     for (PowerRanger *rangers in self.mapView.subviews) {
-        NSString *xString = [NSString stringWithFormat:@"%2f", rangers.center.x];
-        NSString *yString = [NSString stringWithFormat:@"%2f", rangers.center.y];
-        switch (rangers.rangerType) {
-            case Red:
-                self.xRed.text = xString;
-                self.yRed.text = yString;
-                break;
-             case Yellow:
-                self.xYellow.text = xString;
-                self.yYellow.text = yString;
-                break;
-            case Green:
-                self.xGreen.text = xString;
-                self.yGreen.text = yString;
-                break;
-            case Blue:
-                self.xBlue.text = xString;
-                self.yBlue.text = yString;
-                break;
-            case Black:
-                self.xBlack.text = xString;
-                self.yBlack.text = yString;
-                break;
-            default:
-                break;
-        }
         [self deletePreviousValueForObjectType:rangers.rangerType];
         [self saveRangerPositionsforRangerName:rangers.rangerName xPosition:rangers.center.x yPosition:rangers.center.y forType:rangers.rangerType];
     }
