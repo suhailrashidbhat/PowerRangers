@@ -26,21 +26,13 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.rangerSelectionTable.layer.borderWidth = 2.0;
     self.rangerSelectionTable.layer.borderColor = [UIColor blackColor].CGColor;
     self.mapView.layer.borderWidth = 2.0;
     self.mapView.layer.borderColor = [UIColor blackColor].CGColor;
     [self restoreAndPlotRanger];
-    
-    // We could use the real MKMap... in version 2! 
-    /*
-    self.mapVyu = [[MKMapView alloc] initWithFrame:self.mapView.frame];
-    self.mapVyu.mapType = MKMapTypeHybrid;
-    [self.view addSubview:self.mapVyu];
-     */
 }
 
 - (void)restoreAndPlotRanger {
@@ -112,7 +104,6 @@
     return FALSE;
 }
 
-
 -(void)addSquareInMapWithRangerType:(PowerRangerType)rangerType {
     [self addSquareWithType:rangerType];
     NSInteger xPoint = (self.mapView.frame.size.width - self.rangerSquare.frame.size.width)/2;
@@ -124,7 +115,6 @@
             yPoint += 10;
         }
     }
-    //Simple Animation from top left corner.
     [self.rangerSquare setFrame:CGRectMake(0, 0, RANGER_WIDTH, RANGER_HEIGHT)];
     [UIView animateWithDuration:0.6 animations:^{
         [self.rangerSquare setFrame:CGRectMake(xPoint, yPoint, RANGER_WIDTH, RANGER_HEIGHT)];
@@ -156,7 +146,6 @@
         if  (inBounds) {
             //if boundary conditions met : translate the view
             panGesture.view.center = newCenter;
-            NSLog(@"X: %f  Y == %f", newCenter.x, newCenter.y);
             [panGesture setTranslation:CGPointZero inView:self.view];
         }
     }
@@ -220,7 +209,6 @@
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
         }
     }
 }
@@ -230,8 +218,7 @@
 
 // Returns the managed object context for the application.
 // If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
-- (NSManagedObjectContext *)managedObjectContext
-{
+- (NSManagedObjectContext *)managedObjectContext {
     if (__managedObjectContext != nil) {
         return __managedObjectContext;
     }
@@ -246,8 +233,7 @@
 
 // Returns the managed object model for the application.
 // If the model doesn't already exist, it is created from the application's model.
-- (NSManagedObjectModel *)managedObjectModel
-{
+- (NSManagedObjectModel *)managedObjectModel {
     if (__managedObjectModel != nil) {
         return __managedObjectModel;
     }
@@ -258,8 +244,7 @@
 
 // Returns the persistent store coordinator for the application.
 // If the coordinator doesn't already exist, it is created and the application's store added to it.
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
-{
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
     if (__persistentStoreCoordinator != nil) {
         return __persistentStoreCoordinator;
     }
@@ -279,8 +264,7 @@
 #pragma mark - Application's Documents directory
 
 // Returns the URL to the application's Documents directory.
-- (NSURL *)applicationDocumentsDirectory
-{
+- (NSURL *)applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
