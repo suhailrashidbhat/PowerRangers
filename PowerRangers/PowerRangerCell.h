@@ -20,12 +20,13 @@ static const int CELL_OFFSET = 10;
 
 @interface PowerRangerCell : UITableViewCell
 
+@property(nonatomic, assign) PowerRangerType rangerType;
 @property(nonatomic, strong) PowerRanger *rangerSquare;
 @property(nonatomic, strong) UILabel *rangerName;
 @property(nonatomic, assign) BOOL isSelected;
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withIndexPath:(NSIndexPath*)indexPath;
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withRangerType:(PowerRangerType)rangerType;
 - (void) disableCell;
-- (void) enableCellWithType:(PowerRangerType)rangerType;
+- (void) enableCell;
 
 @end

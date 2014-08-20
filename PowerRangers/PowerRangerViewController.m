@@ -69,13 +69,13 @@ static const int ROW_COUNT = 5;
     NSString *cellIdentifier = @"rangerSelectionCell";
     rangerCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (rangerCell == nil) {
-        rangerCell = [[PowerRangerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier withIndexPath:indexPath];
+        rangerCell = [[PowerRangerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier withRangerType:indexPath.row];
     }
     rangerCell.isSelected = [self checkIfRangerIsInTheField:(PowerRangerType)indexPath.row];
     if (rangerCell.isSelected) {
         [rangerCell disableCell];
     } else {
-        [rangerCell enableCellWithType:indexPath.row];
+        [rangerCell enableCell];
     }
     return rangerCell;
 }
@@ -89,7 +89,7 @@ static const int ROW_COUNT = 5;
                 [rangerView removeFromSuperview];
             }
         }
-        [currentCell enableCellWithType:indexPath.row];
+        [currentCell enableCell];
     } else {
         [self addSquareInMapWithRangerType:indexPath.row];
         [currentCell disableCell];
