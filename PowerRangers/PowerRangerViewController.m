@@ -53,8 +53,9 @@
         NSLog(@"YPosition: %f", rangerInfo.rangerYPosition);
         
         self.rangerSquare = [[PowerRanger alloc] initWithType:[rangerInfo.rangerType intValue]];
-        [self.rangerSquare setFrame:CGRectMake(rangerInfo.rangerXPosition, rangerInfo.rangerXPosition, RANGER_WIDTH, RANGER_HEIGHT)];
+        [self.rangerSquare setFrame:CGRectMake(rangerInfo.rangerXPosition, rangerInfo.rangerYPosition, RANGER_WIDTH, RANGER_HEIGHT)];
         [self.mapView addSubview:self.rangerSquare];
+        [self.mapView bringSubviewToFront:self.rangerSquare];
     }
 }
 
@@ -75,6 +76,12 @@
     if (rangerCell == nil) {
         rangerCell = [[PowerRangerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier withIndexPath:indexPath];
     }
+    rangerCell.isSelected = [self checkIfRangerIsInTheField:(PowerRangerType)indexPath.row];
+    if (rangerCell.isSelected) {
+        [rangerCell disableCell];
+    } else {
+        [rangerCell enableCellWithType:indexPath.row];
+    }
     return rangerCell;
 }
 
@@ -82,8 +89,9 @@
     [self.rangerSelectionTable deselectRowAtIndexPath:indexPath animated:YES];
     PowerRangerCell *currentCell = (PowerRangerCell*)[self.rangerSelectionTable cellForRowAtIndexPath:indexPath];
     if (currentCell.isSelected) {
-        for (UIView *rangerView in self.mapView.subviews) {
-            if (rangerView.tag == indexPath.row) {
+        [self deletePreviousValueForObjectType:indexPath.row];
+        for (PowerRanger *rangerView in self.mapView.subviews) {
+            if (rangerView.rangerType == indexPath.row) {
                 [rangerView removeFromSuperview];
             }
         }
@@ -92,6 +100,15 @@
         [self addSquareInMapWithIndexPath:indexPath];
         [currentCell disableCell];
     }
+}
+
+- (BOOL)checkIfRangerIsInTheField:(PowerRangerType)rangerType {
+    for (PowerRanger *ranger in self.mapView.subviews) {
+        if (ranger.rangerType == rangerType) {
+            return TRUE;
+        }
+    }
+    return FALSE;
 }
 
 #pragma mark - Map operations and saving positions.
@@ -112,7 +129,7 @@
         }
     }
     [self.rangerSquare setFrame:CGRectMake(xPoint, yPoint, RANGER_WIDTH, RANGER_HEIGHT)];
-    self.rangerSquare.tag = indexPath.row;
+    //self.rangerSquare.rangerType = indexPath.row;
     [self.mapView addSubview:self.rangerSquare];
 }
 
@@ -139,7 +156,7 @@
         }
     }
 }
-- (IBAction)SaveButtonClicked:(id)sender {
+- (IBAction)saveButtonClicked:(id)sender {
     for (PowerRanger *rangers in self.mapView.subviews) {
         NSString *xString = [NSString stringWithFormat:@"%2f", rangers.center.x];
         NSString *yString = [NSString stringWithFormat:@"%2f", rangers.center.y];
@@ -168,7 +185,7 @@
                 break;
         }
         [self deletePreviousValueForObjectType:rangers.rangerType];
-        [self SaveRangerPositionsforRangerName:rangers.rangerName xPosition:rangers.center.x yPosition:rangers.center.y forType:rangers.rangerType];
+        [self saveRangerPositionsforRangerName:rangers.rangerName xPosition:rangers.center.x yPosition:rangers.center.y forType:rangers.rangerType];
     }
 }
 
@@ -191,7 +208,7 @@
     [context save:&saveError];
 }
 
-- (IBAction)DisplayResultsButtonClicked:(id)sender {
+- (IBAction)displayResultsButtonClicked:(id)sender {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSManagedObjectContext *context = [self managedObjectContext];
     NSError *error;
@@ -230,7 +247,7 @@
     
 }
 
-- (void)SaveRangerPositionsforRangerName:(NSString*)powerRangerName xPosition:(float)xPosition yPosition:(float)yPosition forType:(PowerRangerType)rangerType {
+- (void)saveRangerPositionsforRangerName:(NSString*)powerRangerName xPosition:(float)xPosition yPosition:(float)yPosition forType:(PowerRangerType)rangerType {
     NSManagedObjectContext *context = [self managedObjectContext];
     RangerEntity *ranger = [NSEntityDescription
                       insertNewObjectForEntityForName:@"RangerEntity"
