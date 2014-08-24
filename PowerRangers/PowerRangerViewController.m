@@ -49,7 +49,7 @@ static const int ROW_COUNT = 5;
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     for (RangerEntity *rangerInfo in fetchedObjects) {
         [self addSquareWithType:[rangerInfo.rangerType intValue]];
-        [self.rangerSquare setFrame:CGRectMake(rangerInfo.rangerXPosition, rangerInfo.rangerYPosition, RANGER_WIDTH, RANGER_HEIGHT)];
+        [self.rangerSquare setFrame:CGRectMake(rangerInfo.rangerXPosition - RANGER_WIDTH/2, rangerInfo.rangerYPosition - RANGER_HEIGHT/2 , RANGER_WIDTH, RANGER_HEIGHT)];
     }
 }
 
