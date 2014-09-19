@@ -26,6 +26,8 @@ typedef enum : NSUInteger {
 static const int RANGER_WIDTH = 30;
 static const int RANGER_HEIGHT = 30;
 
+// Interface addition.  
+
 @interface PowerRanger : UIView
 
 - (id)initWithType:(PowerRangerType)rangerType;
